@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p c:/postsend-front/frontend/src/contexts c:/postsend-front/frontend/src/components/form && echo \"Done\")",
+      "Bash(node -e \"const plugin = require\\('c:/postsend-front/frontend/node_modules/@digital-go-jp/tailwind-theme-plugin/dist/index.cjs.js'\\); const colors = Object.keys\\(plugin.theme?.extend?.colors ?? plugin\\({}\\).theme?.extend?.colors ?? {}\\); console.log\\(colors.slice\\(0,30\\)\\)\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"c:\\\\postsend-front\\\\frontend\\\\src\\\\mocks\")",
+      "Bash(Get-ChildItem -Path \"c:\\\\postsend-front\" -Exclude \"frontend\" -Recurse -Filter \"*.java\")",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Sort-Object)",
+      "PowerShell(cmd /c \"dir /s /b $env:USERPROFILE\\\\.sts4 2>&1 | findstr mvn\")",
+      "PowerShell($env:PATH = \"$env:USERPROFILE\\\\scoop\\\\apps\\\\maven\\\\current\\\\bin;$env:PATH\"; cd \"c:\\\\postsend-front\\\\backend\"; mvn compile -q 2>&1 | Select-Object -Last 10)",
+      "PowerShell(\\(Get-Process -Id 8552\\).CommandLine 2>$null; \\(Get-WmiObject Win32_Process -Filter \"ProcessId=8552\"\\).CommandLine 2>$null)",
+      "PowerShell(\\(Get-WmiObject Win32_Process -Filter \"ProcessId=13744\"\\).CommandLine 2>$null)",
+      "PowerShell(Get-Process -Id 13744 -IncludeUserName 2>$null)",
+      "PowerShell(vercel --version 2>&1)",
+      "PowerShell(vercel --version)",
+      "PowerShell(vercel whoami 2>&1)"
+    ],
+    "additionalDirectories": [
+      "c:\\postsend-front\\frontend\\src"
+    ]
+  }
+}
