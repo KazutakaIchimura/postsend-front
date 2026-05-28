@@ -34,8 +34,7 @@ export const LoginForm = () => {
       if (axios.isAxiosError(e) && e.response?.status === HTTP_STATUS_UNAUTHORIZED) {
         setServerError('メールアドレスまたはパスワードが正しくありません');
       } else {
-        const status = axios.isAxiosError(e) ? (e.response?.status ?? 'network error') : 'unknown';
-        setServerError(`エラー [${status}]: しばらく待ってからもう一度お試しください`);
+        setServerError('しばらく待ってからもう一度お試しください');
       }
     }
   };

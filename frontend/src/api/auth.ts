@@ -5,7 +5,7 @@ export const login = (data: { email: string; password: string }) => {
   const params = new URLSearchParams();
   params.append('username', data.email);
   params.append('password', data.password);
-  return client.post<{ message: string }>('/auth/login', params, {
+  return client.post<{ message: string }>('/auth/sign-in', params, {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   }).then(r => r.data);
 };
