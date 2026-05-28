@@ -22,7 +22,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setCurrentStaff(r.data);
     } catch {
       setCurrentStaff(null);
-      window.location.href = '/login';
     } finally {
       setIsLoading(false);
     }

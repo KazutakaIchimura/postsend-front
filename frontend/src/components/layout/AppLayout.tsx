@@ -1,12 +1,16 @@
 import clsx from 'clsx';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { Header } from './Header';
-import { AuthProvider } from '@/contexts/AuthContext';
+import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { AccessibilityProvider, useAccessibility } from '@/contexts/AccessibilityContext';
 
 const AppLayoutContent = () => {
+  const { currentStaff, isLoading } = useAuth();
   const { settings } = useAccessibility();
   const bgClass = settings.bgColor === 'white' ? 'bg-solid-gray-50' : `bg-theme-${settings.bgColor}`;
+
+  if (isLoading) return null;
+  if (!currentStaff) return <Navigate to="/login" replace />;
 
   return (
     <div className={clsx('flex flex-col min-h-screen', bgClass)}>
