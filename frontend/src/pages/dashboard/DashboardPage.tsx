@@ -44,9 +44,9 @@ export const DashboardPage = () => {
         <SummaryCard icon="🚨" label="期限切れ" count={data.overdueCount} isAlert />
       </div>
 
-      <OverdueAlert overdueMonths={data.overdueMonths} />
+      <OverdueAlert overdueMonths={data.overdueMonths ?? []} />
 
-      <RecentHistoryList history={data.recentHistory} />
+      <RecentHistoryList history={data.recentHistory ?? []} />
 
       <div className="flex gap-3">
         <Button variant="solid-fill" size="md" onClick={() => navigate('/mail-sends/new')}>
