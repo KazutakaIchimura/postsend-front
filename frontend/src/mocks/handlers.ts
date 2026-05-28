@@ -15,10 +15,12 @@ export const handlers = [
   http.get('/api/auth/me', () => HttpResponse.json(staffs.find(s => s.id === 1))),
   http.post('/api/auth/logout', () => HttpResponse.json({})),
   http.post('/api/auth/login', async ({ request }) => {
-    const body = await request.json() as { email: string; password: string };
-    const staff = staffs.find(s => s.email === body.email && s.isActive);
+    const text = await request.text();
+    const params = new URLSearchParams(text);
+    const username = params.get('username') ?? '';
+    const staff = staffs.find(s => s.email === username && s.isActive);
     if (!staff) return new HttpResponse(null, { status: 401 });
-    return HttpResponse.json(staff);
+    return HttpResponse.json({ message: 'ログイン成功' });
   }),
   http.post('/api/auth/change-password', () => HttpResponse.json({})),
 

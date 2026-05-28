@@ -35,12 +35,12 @@ export const DashboardPage = () => {
         <SummaryCard
           icon="⏳"
           label="送付待ち"
-          count={data.summary.pending}
+          count={data.pendingCount}
           isAlert
           linkTo="/mail-sends/by-office?status=PENDING"
         />
-        <SummaryCard icon="✅" label="送付済み" count={data.summary.sent} />
-        <SummaryCard icon="🏁" label="完了" count={data.summary.done} />
+        <SummaryCard icon="✅" label="送付済み(今月)" count={data.sentThisMonthCount} />
+        <SummaryCard icon="🚨" label="期限切れ" count={data.overdueCount} isAlert />
       </div>
 
       <OverdueAlert overdueMonths={data.overdueMonths} />

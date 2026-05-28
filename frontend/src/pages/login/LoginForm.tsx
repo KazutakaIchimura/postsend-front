@@ -7,7 +7,7 @@ import { Label } from '@/components/dads/Label/Label';
 import { Input } from '@/components/dads/Input/Input';
 import { Button } from '@/components/dads/Button/Button';
 import { FormError } from '@/components/form/FormError';
-import { login } from '@/api/auth';
+import { login, getMe } from '@/api/auth';
 import { loginSchema, type LoginForm as LoginFormType } from '@/schemas/loginSchema';
 
 const HTTP_STATUS_UNAUTHORIZED = 401;
@@ -23,7 +23,8 @@ export const LoginForm = () => {
   const onSubmit = async (data: LoginFormType) => {
     setServerError('');
     try {
-      const staff = await login(data);
+      await login(data);
+      const staff = await getMe();
       if (staff.forcePasswordChange) {
         navigate('/password/change');
       } else {

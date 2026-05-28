@@ -2,7 +2,9 @@ import { client } from './client';
 
 export type DashboardData = {
   currentMonth: string;
-  summary: { pending: number; sent: number; done: number };
+  pendingCount: number;
+  overdueCount: number;
+  sentThisMonthCount: number;
   overdueMonths: { month: string; count: number }[];
   recentHistory: {
     id: number;

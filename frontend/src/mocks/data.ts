@@ -84,7 +84,9 @@ const overdueMonths = [...new Set(mockMailSends.filter(m => m.isOverdue).map(m =
 // DashboardData 型に合わせた形
 export const mockDashboard = {
   currentMonth: ym(0),
-  summary: { pending: pendingCount, sent: sentCount, done: 0 },
+  pendingCount,
+  overdueCount: mockMailSends.filter(m => m.isOverdue).length,
+  sentThisMonthCount: sentCount,
   overdueMonths,
   recentHistory: mockMailSends
     .filter(m => m.status === 'SENT')
