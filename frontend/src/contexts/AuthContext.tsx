@@ -33,7 +33,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const logout = async () => {
-    await client.post('/auth/logout');
+    try {
+      await client.post('/auth/logout');
+    } catch {
+      // logout API が失敗してもセッションをクリアしてリダイレクト
+    }
     window.location.href = '/login';
   };
 
