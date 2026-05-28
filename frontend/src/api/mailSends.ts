@@ -1,9 +1,16 @@
 import { client } from './client';
 import type { MailSend, MailSendByOffice, MailSendBatch } from '@/types/mailSend';
 
+type RawMailSend = Omit<MailSend, 'isOverdue'> & { overdue?: boolean; isOverdue?: boolean };
+
+const normalizeMailSend = (raw: RawMailSend): MailSend => ({
+  ...raw,
+  isOverdue: raw.isOverdue ?? raw.overdue ?? false,
+});
+
 export const getMailSendsByOffice = (status?: string) =>
-  client.get<MailSendByOffice[]>('/mail-sends/by-office', { params: { status } })
-    .then(r => r.data);
+  client.get<{ office: MailSendByOffice['office']; mailSends: RawMailSend[] }[]>('/mail-sends/by-office', { params: { status } })
+    .then(r => r.data.map(g => ({ ...g, mailSends: g.mailSends.map(normalizeMailSend) })));
 
 export const getMailSends = (params?: {
   status?: string;
@@ -12,7 +19,7 @@ export const getMailSends = (params?: {
   officeId?: number;
   dateFrom?: string;
   dateTo?: string;
-}) => client.get<MailSend[]>('/mail-sends', { params }).then(r => r.data);
+}) => client.get<RawMailSend[]>('/mail-sends', { params }).then(r => r.data.map(normalizeMailSend));
 
 export const createMailSend = (data: {
   userId: number;

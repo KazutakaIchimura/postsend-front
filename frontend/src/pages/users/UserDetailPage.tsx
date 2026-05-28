@@ -26,7 +26,8 @@ const formatDate = (iso: string | null) => {
 /**
  * "YYYY-MM" 形式の年月を "YYYY/M" 形式に変換する
  */
-const formatMonth = (ym: string) => {
+const formatMonth = (ym: string | undefined | null) => {
+  if (!ym) return '';
   const [y, m] = ym.split('-');
   return `${y}/${parseInt(m)}`;
 };

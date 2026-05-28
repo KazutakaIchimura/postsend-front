@@ -83,7 +83,7 @@ export const CreatePage = () => {
   const activeUsers = users.filter(u => u.isActive);
   const selectedUser = users.find(u => u.id === form.userId);
   const selectedOffice = offices.find(o => o.id === form.officeId);
-  const sendMonthValue = `${form.sendYear}-${form.sendMonth}`;
+  const sendMonthValue = `${form.sendYear}-${form.sendMonth}-01`;
 
   const years = [CURRENT_YEAR - 1, CURRENT_YEAR, CURRENT_YEAR + 1].map(String);
   const months = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'));

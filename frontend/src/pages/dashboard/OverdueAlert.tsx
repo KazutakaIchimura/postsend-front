@@ -8,7 +8,8 @@ type Props = {
 /**
  * "YYYY-MM" 形式の年月を "YYYY年M月" 形式に変換する
  */
-const formatMonth = (ym: string) => {
+const formatMonth = (ym: string | undefined | null) => {
+  if (!ym) return '';
   const [y, m] = ym.split('-');
   return `${y}年${parseInt(m)}月`;
 };
