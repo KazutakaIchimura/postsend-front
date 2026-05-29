@@ -12,7 +12,7 @@ import { Input } from '@/components/dads/Input/Input';
 import { Select } from '@/components/dads/Select/Select';
 import { RequirementBadge } from '@/components/dads/RequirementBadge/RequirementBadge';
 import { FormError } from '@/components/form/FormError';
-import { staffCreateSchema, staffEditSchema, type StaffCreateForm, type StaffEditForm } from '@/schemas/staffSchema';
+import { staffCreateSchema, staffEditSchema, type StaffCreateForm } from '@/schemas/staffSchema';
 
 const HTTP_STATUS_CONFLICT = 409;
 
@@ -25,20 +25,20 @@ export const StaffForm = () => {
   const { data: staffs = [] } = useQuery({ queryKey: ['staffs'], queryFn: getStaffs, enabled: isEdit });
   const staff = staffs.find(s => s.id === Number(id));
 
-  const { register, handleSubmit, reset, setError, formState: { errors, isSubmitting } } = useForm<StaffCreateForm | StaffEditForm>({
+  const { register, handleSubmit, reset, setError, formState: { errors, isSubmitting } } = useForm<StaffCreateForm>({
     resolver: zodResolver(isEdit ? staffEditSchema : staffCreateSchema),
   });
 
   // NOTE: 編集時に取得したスタッフ情報をフォームに反映する（react-hook-form の reset が必要）
   useEffect(() => {
-    if (staff) reset({ name: staff.name, email: staff.email, role: staff.role });
+    if (staff) reset({ name: staff.name, email: staff.email, role: staff.role, password: '' });
   }, [staff, reset]);
 
   const mutation = useMutation({
-    mutationFn: (data: StaffCreateForm | StaffEditForm) =>
+    mutationFn: (data: StaffCreateForm) =>
       isEdit
         ? updateStaff({ id: Number(id), data: { name: data.name, email: data.email, role: data.role } })
-        : createStaff(data as StaffCreateForm),
+        : createStaff(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['staffs'] });
       navigate('/staffs');
