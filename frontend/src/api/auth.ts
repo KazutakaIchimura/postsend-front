@@ -5,7 +5,7 @@ export const login = (data: { email: string; password: string }) => {
   const params = new URLSearchParams();
   params.append('username', data.email);
   params.append('password', data.password);
-  return client.post<{ message: string }>('/auth/sign-in', params, {
+  return client.post<{ message: string }>('/auth/login', params, {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   }).then(r => r.data);
 };
@@ -17,6 +17,5 @@ export const getMe = () =>
   client.get<Staff>('/auth/me').then(r => r.data);
 
 export const changePassword = (data: {
-  currentPassword: string;
   newPassword: string;
 }) => client.post('/auth/password/change', data).then(r => r.data);

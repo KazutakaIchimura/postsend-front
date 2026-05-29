@@ -15,6 +15,7 @@ const HTTP_STATUS_BAD_REQUEST = 400;
 const HTTP_STATUS_UNAUTHORIZED = 401;
 const REDIRECT_DELAY_MS = 2000;
 
+
 export const ChangePasswordPage = () => {
   const navigate = useNavigate();
   const [serverError, setServerError] = useState('');
@@ -27,13 +28,13 @@ export const ChangePasswordPage = () => {
   const onSubmit = async (data: ChangePasswordForm) => {
     setServerError('');
     try {
-      await changePassword({ currentPassword: data.currentPassword, newPassword: data.newPassword });
+      await changePassword({ newPassword: data.newPassword });
       setSuccess(true);
       setTimeout(() => navigate('/'), REDIRECT_DELAY_MS);
     } catch (e: unknown) {
       const status = axios.isAxiosError(e) ? e.response?.status : undefined;
       if (status === HTTP_STATUS_BAD_REQUEST || status === HTTP_STATUS_UNAUTHORIZED) {
-        setServerError('今のパスワードが正しくありません');
+        setServerError('パスワードの変更に失敗しました');
       } else {
         setServerError('しばらく待ってからもう一度お試しください');
       }
@@ -57,11 +58,6 @@ export const ChangePasswordPage = () => {
                   {serverError}
                 </div>
               )}
-              <div className="flex flex-col gap-1">
-                <Label htmlFor="currentPassword">今のパスワード<RequirementBadge>必須</RequirementBadge></Label>
-                <Input id="currentPassword" type="password" isError={!!errors.currentPassword} {...register('currentPassword')} />
-                <FormError message={errors.currentPassword?.message} />
-              </div>
               <div className="flex flex-col gap-1">
                 <Label htmlFor="newPassword">新しいパスワード<RequirementBadge>必須</RequirementBadge></Label>
                 <Input id="newPassword" type="password" isError={!!errors.newPassword} {...register('newPassword')} />

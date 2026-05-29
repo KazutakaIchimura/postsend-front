@@ -27,4 +27,5 @@ export type MailSendBatch = {
   batchId: number;
   sentAt: string;
   updatedCount: number;
+  notes?: string;
 };

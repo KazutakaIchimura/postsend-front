@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 export const changePasswordSchema = z.object({
-  currentPassword: z.string().min(1, '今のパスワードを入力してください'),
   newPassword: z.string()
     .min(8, '新しいパスワードは8文字以上で、英字（a〜z）と数字（0〜9）をまぜて設定してください')
     .regex(/^(?=.*[a-zA-Z])(?=.*\d).+$/,

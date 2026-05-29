@@ -14,7 +14,12 @@
       "PowerShell(Get-Process -Id 13744 -IncludeUserName 2>$null)",
       "PowerShell(vercel --version 2>&1)",
       "PowerShell(vercel --version)",
-      "PowerShell(vercel whoami 2>&1)"
+      "PowerShell(vercel whoami 2>&1)",
+      "Read(//mnt/c/postsend-front/**)",
+      "Bash(npm run *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
     ],
     "additionalDirectories": [
       "c:\\postsend-front\\frontend\\src"
