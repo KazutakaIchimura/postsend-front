@@ -86,9 +86,11 @@ export const StaffListPage = () => {
                   無効にする
                 </Button>
               )}
-              <Button variant="outline" size="xs" onClick={() => navigate(`/staffs/${s.id}/edit`)}>
-                編集
-              </Button>
+              {s.isActive && (
+                <Button variant="outline" size="xs" onClick={() => navigate(`/staffs/${s.id}/edit`)}>
+                  編集
+                </Button>
+              )}
             </div>
           </li>
         ))}
