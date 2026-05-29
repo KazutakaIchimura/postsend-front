@@ -1,8 +1,8 @@
 import { client } from './client';
 import type { Staff, RoleOption } from '@/types/staff';
 
-export const getStaffs = () =>
-  client.get<Staff[]>('/staffs').then(r => r.data);
+export const getStaffs = (params?: { includeInactive?: boolean }) =>
+  client.get<Staff[]>('/staffs', { params }).then(r => r.data);
 
 export const getRoles = () =>
   client.get<RoleOption[]>('/roles').then(r => r.data);

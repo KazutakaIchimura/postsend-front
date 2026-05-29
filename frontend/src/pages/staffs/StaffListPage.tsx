@@ -21,7 +21,10 @@ export const StaffListPage = () => {
   const queryClient = useQueryClient();
   const [disablingStaff, setDisablingStaff] = useState<Staff | null>(null);
 
-  const { data: staffs = [], isLoading } = useQuery({ queryKey: ['staffs'], queryFn: getStaffs });
+  const { data: staffs = [], isLoading } = useQuery({
+    queryKey: ['staffs'],
+    queryFn: () => getStaffs({ includeInactive: true }),
+  });
 
   const adminCount = staffs.filter(s => s.role === 'ADMIN' && s.isActive).length;
 

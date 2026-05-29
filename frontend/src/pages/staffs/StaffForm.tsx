@@ -25,7 +25,7 @@ export const StaffForm = () => {
   const queryClient = useQueryClient();
   const { currentStaff, refresh } = useAuth();
 
-  const { data: staffs = [] } = useQuery({ queryKey: ['staffs'], queryFn: getStaffs, enabled: isEdit });
+  const { data: staffs = [] } = useQuery({ queryKey: ['staffs'], queryFn: () => getStaffs({ includeInactive: true }), enabled: isEdit });
   const staff = staffs.find(s => s.id === Number(id));
 
   const { register, handleSubmit, reset, setError, formState: { errors, isSubmitting } } = useForm<StaffFormType>({
