@@ -4,7 +4,7 @@ import type { Staff } from '@/types/staff';
 export const getStaffs = () =>
   client.get<Staff[]>('/staffs').then(r => r.data);
 
-export const createStaff = (data: Omit<Staff, 'id' | 'isActive' | 'forcePasswordChange'> & { password: string }) =>
+export const createStaff = (data: Omit<Staff, 'id' | 'isActive' | 'forcePasswordChange' | 'createdAt'> & { password: string }) =>
   client.post<Staff>('/staffs', data).then(r => r.data);
 
 /**
