@@ -1,10 +1,13 @@
 import { client } from './client';
-import type { Staff } from '@/types/staff';
+import type { Staff, RoleOption } from '@/types/staff';
 
 export const getStaffs = () =>
   client.get<Staff[]>('/staffs').then(r => r.data);
 
-export const createStaff = (data: Omit<Staff, 'id' | 'isActive' | 'forcePasswordChange' | 'createdAt'> & { password?: string }) =>
+export const getRoles = () =>
+  client.get<RoleOption[]>('/roles').then(r => r.data);
+
+export const createStaff = (data: Omit<Staff, 'id' | 'isActive' | 'forcePasswordChange' | 'createdAt' | 'roleId'> & { password?: string }) =>
   client.post<Staff>('/staffs', data).then(r => r.data);
 
 /**
