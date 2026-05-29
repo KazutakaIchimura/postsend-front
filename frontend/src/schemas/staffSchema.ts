@@ -1,21 +1,23 @@
 import { z } from 'zod';
 
-const baseStaffSchema = z.object({
+const PASSWORD_ERROR = 'パスワードは8文字以上で、英字（a〜z）と数字（0〜9）をまぜて設定してください';
+const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*\d).+$/;
+
+const staffBaseSchema = z.object({
   name: z.string().min(1, '氏名を入力してください').max(100),
   email: z.string()
     .min(1, 'メールアドレスを入力してください')
     .email('メールアドレスは ◯◯@◯◯.◯◯ の形で入力してください'),
+  password: z.string(),
   role: z.enum(['ADMIN', 'STAFF'] as const, { error: '権限を選んでください' }),
 });
 
-export const staffCreateSchema = baseStaffSchema.extend({
-  password: z.string()
-    .min(8, 'パスワードは8文字以上で、英字（a〜z）と数字（0〜9）をまぜて設定してください')
-    .regex(/^(?=.*[a-zA-Z])(?=.*\d).+$/,
-      'パスワードは8文字以上で、英字（a〜z）と数字（0〜9）をまぜて設定してください'),
+export const staffCreateSchema = staffBaseSchema.superRefine((data, ctx) => {
+  if (data.password.length < 8 || !PASSWORD_REGEX.test(data.password)) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: PASSWORD_ERROR, path: ['password'] });
+  }
 });
 
-export const staffEditSchema = baseStaffSchema;
+export const staffEditSchema = staffBaseSchema;
 
-export type StaffCreateForm = z.infer<typeof staffCreateSchema>;
-export type StaffEditForm = z.infer<typeof staffEditSchema>;
+export type StaffForm = z.infer<typeof staffBaseSchema>;
