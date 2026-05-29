@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getStaffs, createStaff, updateStaff } from '@/api/staffs';
+import { useAuth } from '@/contexts/AuthContext';
 import { PageTitle } from '@/components/ui/PageTitle';
 import { Button } from '@/components/dads/Button/Button';
 import { Label } from '@/components/dads/Label/Label';
@@ -21,6 +22,7 @@ export const StaffForm = () => {
   const { id } = useParams<{ id: string }>();
   const isEdit = !!id;
   const queryClient = useQueryClient();
+  const { currentStaff, refresh } = useAuth();
 
   const { data: staffs = [] } = useQuery({ queryKey: ['staffs'], queryFn: getStaffs, enabled: isEdit });
   const staff = staffs.find(s => s.id === Number(id));
@@ -39,8 +41,11 @@ export const StaffForm = () => {
       isEdit
         ? updateStaff({ id: Number(id), data: { name: data.name, email: data.email, role: data.role } })
         : createStaff(data),
-    onSuccess: () => {
+    onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ['staffs'] });
+      if (isEdit && Number(id) === currentStaff?.id) {
+        await refresh();
+      }
       navigate('/staffs');
     },
     onError: (e: unknown) => {
