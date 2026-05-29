@@ -15,3 +15,9 @@ export const createStaff = (data: Omit<Staff, 'id' | 'isActive' | 'forcePassword
  */
 export const updateStaff = ({ id, data }: { id: number; data: Partial<Staff> }) =>
   client.put<Staff>(`/staffs/${id}`, data).then(r => r.data);
+
+export const disableStaff = (id: number) =>
+  client.delete(`/staffs/${id}`).then(r => r.data);
+
+export const activateStaff = (id: number) =>
+  client.patch<Staff>(`/staffs/${id}/activate`).then(r => r.data);

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getStaffs, updateStaff } from '@/api/staffs';
+import { getStaffs, disableStaff, activateStaff } from '@/api/staffs';
 import { useAuth } from '@/contexts/AuthContext';
 import { PageTitle } from '@/components/ui/PageTitle';
 import { Button } from '@/components/dads/Button/Button';
@@ -25,13 +25,17 @@ export const StaffListPage = () => {
 
   const adminCount = staffs.filter(s => s.role === 'ADMIN' && s.isActive).length;
 
-  const mutation = useMutation({
-    mutationFn: ({ id, isActive }: { id: number; isActive: boolean }) =>
-      updateStaff({ id, data: { isActive } }),
+  const disableMutation = useMutation({
+    mutationFn: (id: number) => disableStaff(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['staffs'] });
       setDisablingStaff(null);
     },
+  });
+
+  const activateMutation = useMutation({
+    mutationFn: (id: number) => activateStaff(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['staffs'] }),
   });
 
   /**
@@ -70,7 +74,7 @@ export const StaffListPage = () => {
             <span className="text-std-14N-130 text-solid-gray-700 shrink-0">{s.isActive ? ROLE_LABEL[s.role] : '※無効'}</span>
             <div className="flex gap-2 shrink-0">
               {!s.isActive && (
-                <Button variant="outline" size="xs" onClick={() => mutation.mutate({ id: s.id, isActive: true })}>
+                <Button variant="outline" size="xs" onClick={() => activateMutation.mutate(s.id)}>
                   有効に戻す
                 </Button>
               )}
@@ -93,7 +97,7 @@ export const StaffListPage = () => {
         description={`${disablingStaff?.name} を無効にします。ログインできなくなります。`}
         confirmLabel="無効にする"
         isDanger
-        onConfirm={() => disablingStaff && mutation.mutate({ id: disablingStaff.id, isActive: false })}
+        onConfirm={() => disablingStaff && disableMutation.mutate(disablingStaff.id)}
         onCancel={() => setDisablingStaff(null)}
       />
     </div>
