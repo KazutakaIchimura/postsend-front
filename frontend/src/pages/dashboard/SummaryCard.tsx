@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/dads/Button/Button';
+import { Furigana } from '@/components/ui/Furigana';
 
 type Props = {
   label: string;
@@ -20,7 +21,7 @@ export const SummaryCard = ({ label, count, icon, isAlert, linkTo }: Props) => {
     )}>
       <div className="flex items-center gap-2 text-std-14N-130 text-solid-gray-700">
         <span aria-hidden="true">{icon}</span>
-        <span>{label}</span>
+        <Furigana text={label} />
       </div>
       <p className={clsx(
         'text-std-32B-150',

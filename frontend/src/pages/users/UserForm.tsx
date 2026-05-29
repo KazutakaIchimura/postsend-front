@@ -12,6 +12,7 @@ import { Textarea } from '@/components/dads/Textarea/Textarea';
 import { RequirementBadge } from '@/components/dads/RequirementBadge/RequirementBadge';
 import { FormError } from '@/components/form/FormError';
 import { userSchema, type UserForm as UserFormType } from '@/schemas/userSchema';
+import { Furigana } from '@/components/ui/Furigana';
 
 export const UserForm = () => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ export const UserForm = () => {
           </div>
         )}
         <div className="flex flex-col gap-1">
-          <Label htmlFor="name">氏名<RequirementBadge>必須</RequirementBadge></Label>
+          <Label htmlFor="name"><Furigana text="氏名" /><RequirementBadge>必須</RequirementBadge></Label>
           <Input id="name" type="text" placeholder="例：田中 太郎" isError={!!errors.name} {...register('name')} />
           <FormError message={errors.name?.message} />
         </div>

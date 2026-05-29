@@ -5,6 +5,7 @@ import { Settings } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/dads/Button/Button';
 import { AccessibilityPanel } from '@/components/ui/AccessibilityPanel';
+import { Furigana } from '@/components/ui/Furigana';
 
 type NavItem = { to: string; label: string; end: boolean };
 
@@ -72,7 +73,7 @@ export const Header = () => {
                   }
                   aria-current={undefined}
                 >
-                  {label}
+                  <Furigana text={label} />
                 </NavLink>
               </li>
             ))}

@@ -6,6 +6,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getUsers, getUserOffices } from '@/api/users';
 import { createMailSend } from '@/api/mailSends';
 import { PageTitle } from '@/components/ui/PageTitle';
+import { Furigana } from '@/components/ui/Furigana';
 import { Button } from '@/components/dads/Button/Button';
 import { Label } from '@/components/dads/Label/Label';
 import { Select } from '@/components/dads/Select/Select';
@@ -130,7 +131,7 @@ export const CreatePage = () => {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <PageTitle><span aria-hidden="true">➕ </span>送付物を新規登録</PageTitle>
+        <PageTitle><span aria-hidden="true">➕ </span><Furigana text="送付物を新規登録" /></PageTitle>
       </div>
       <StepIndicator current={step} />
 

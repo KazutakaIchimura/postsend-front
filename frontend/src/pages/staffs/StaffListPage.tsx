@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { PageTitle } from '@/components/ui/PageTitle';
 import { Button } from '@/components/dads/Button/Button';
 import { ConfirmModal } from '@/components/ui/ConfirmModal';
+import { Furigana } from '@/components/ui/Furigana';
 import type { Staff } from '@/types/staff';
 
 const ROLE_LABEL: Record<string, string> = { ADMIN: '🔑 ADMIN', STAFF: '👤 STAFF' };
@@ -46,7 +47,7 @@ export const StaffListPage = () => {
   return (
     <div className="max-w-2xl mx-auto flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <PageTitle>🔑 スタッフ管理 <span className="text-std-14N-130 text-solid-gray-500">※管理者のみ</span></PageTitle>
+        <PageTitle><Furigana text="🔑 スタッフ管理 " /><span className="text-std-14N-130 text-solid-gray-500">※管理者のみ</span></PageTitle>
         <Button variant="solid-fill" size="md" onClick={() => navigate('/staffs/new')}>
           ➕ 新規登録
         </Button>

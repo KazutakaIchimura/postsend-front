@@ -11,6 +11,7 @@ import { Input } from '@/components/dads/Input/Input';
 import { RequirementBadge } from '@/components/dads/RequirementBadge/RequirementBadge';
 import { FormError } from '@/components/form/FormError';
 import { officeSchema, type OfficeForm as OfficeFormType } from '@/schemas/officeSchema';
+import { Furigana } from '@/components/ui/Furigana';
 
 export const OfficeForm = () => {
   const navigate = useNavigate();
@@ -65,19 +66,19 @@ export const OfficeForm = () => {
         )}
 
         <div className="flex flex-col gap-1">
-          <Label htmlFor="name">事業所名<RequirementBadge>必須</RequirementBadge></Label>
+          <Label htmlFor="name"><Furigana text="事業所名" /><RequirementBadge>必須</RequirementBadge></Label>
           <Input id="name" type="text" placeholder="例：グループホーム○○" isError={!!errors.name} {...register('name')} />
           <FormError message={errors.name?.message} />
         </div>
 
         <div className="flex flex-col gap-1">
-          <Label htmlFor="postalCode">郵便番号<RequirementBadge isOptional>任意</RequirementBadge></Label>
+          <Label htmlFor="postalCode"><Furigana text="郵便番号" /><RequirementBadge isOptional>任意</RequirementBadge></Label>
           <Input id="postalCode" type="text" placeholder="例：123-4567" isError={!!errors.postalCode} {...register('postalCode')} />
           <FormError message={errors.postalCode?.message} />
         </div>
 
         <div className="flex flex-col gap-1">
-          <Label htmlFor="address">住所（番地まで）<RequirementBadge isOptional>任意</RequirementBadge></Label>
+          <Label htmlFor="address"><Furigana text="住所（番地まで）" /><RequirementBadge isOptional>任意</RequirementBadge></Label>
           <Input id="address" type="text" placeholder="例：東京都○○区1丁目1番地1号" isError={!!errors.address} {...register('address')} />
           <FormError message={errors.address?.message} />
         </div>
@@ -89,7 +90,7 @@ export const OfficeForm = () => {
         </div>
 
         <div className="flex flex-col gap-1">
-          <Label htmlFor="phone">電話番号<RequirementBadge isOptional>任意</RequirementBadge></Label>
+          <Label htmlFor="phone"><Furigana text="電話番号" /><RequirementBadge isOptional>任意</RequirementBadge></Label>
           <Input id="phone" type="text" placeholder="例：03-0000-0000" isError={!!errors.phone} {...register('phone')} />
           <FormError message={errors.phone?.message} />
         </div>
