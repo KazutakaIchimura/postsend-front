@@ -56,6 +56,12 @@ export const AccessibilityProvider = ({ children }: { children: ReactNode }) => 
 
 export const useAccessibility = () => {
   const ctx = useContext(AccessibilityContext);
-  if (!ctx) throw new Error('AccessibilityProvider が必要です');
+  if (!ctx) return {
+    settings: DEFAULT_SETTINGS,
+    setFontSize: (_: FontSize) => {},
+    setFurigana: (_: boolean) => {},
+    setBgColor: (_: BgColor) => {},
+    resetSettings: () => {},
+  };
   return ctx;
 };
