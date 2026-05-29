@@ -57,7 +57,9 @@ export const UserDetailPage = () => {
       <div className="flex items-center gap-3">
         <button type="button" onClick={() => navigate('/users')} className="text-std-14N-130 text-green-700 hover:underline">← 戻る</button>
         <PageTitle>👤 {user.name}</PageTitle>
-        <Button variant="outline" size="sm" onClick={() => navigate(`/users/${id}/edit`)}>編集</Button>
+        {user.isActive && (
+          <Button variant="outline" size="sm" onClick={() => navigate(`/users/${id}/edit`)}>編集</Button>
+        )}
       </div>
 
       <section className="bg-white rounded-8 border border-solid-gray-200 divide-y divide-solid-gray-100">
