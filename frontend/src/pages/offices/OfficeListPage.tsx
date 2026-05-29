@@ -81,9 +81,11 @@ export const OfficeListPage = () => {
                   無効にする
                 </Button>
               )}
-              <Button variant="outline" size="xs" onClick={() => navigate(`/offices/${o.id}/edit`)}>
-                編集
-              </Button>
+              {o.isActive && (
+                <Button variant="outline" size="xs" onClick={() => navigate(`/offices/${o.id}/edit`)}>
+                  編集
+                </Button>
+              )}
             </div>
           </li>
         ))}
